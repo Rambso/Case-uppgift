@@ -1,0 +1,12 @@
+wc: /var/log/apt: Is a directory
+wc: /var/log/cups: Is a directory
+wc: /var/log/cups-browsed: Is a directory
+wc: /var/log/dist-upgrade: Is a directory
+wc: /var/log/hp: Is a directory
+wc: /var/log/installer: Is a directory
+wc: /var/log/journal: Is a directory
+wc: /var/log/lightdm: Is a directory
+wc: /var/log/private: Is a directory
+wc: /var/log/speech-dispatcher: Is a directory
+wc: /var/log/sysstat: Is a directory
+wc: /var/log/unattended-upgrades: Is a directory
