@@ -8,11 +8,16 @@
 #
 #
 
+if [[ $UID != 0 ]]; then
+	echo "You are not the superuser."
+	echo "Use 'sudo' when running script"
+	exit
+fi
+
 while true; do
 	clear
-	bash menu.bash
+	bash menu.bash start
 	read -p "input: " input
-	echo $input
 
 	case $input in
 		c | C)
@@ -22,7 +27,7 @@ while true; do
 			;;
 		u | U)
 			clear
-			echo "Users"
+			bash user_management.bash
 			bash exit.bash
 			;;
 		g | G)
