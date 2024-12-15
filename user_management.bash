@@ -15,7 +15,7 @@ while true; do
 		l | L)
 			clear
 			echo "Users: "
-			cat /etc/passwd | grep bash | cut -d ":" -f 1 | column -c 40
+			cat /etc/passwd | grep /home/ | cut -d ":" -f 1 | column -c 40
 			echo
 			bash exit.bash
 			;;

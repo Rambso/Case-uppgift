@@ -25,5 +25,14 @@ case $1 in
 		echo "- d Delete a login user"
 		echo "- e Exit"
 		;;
+	group)
+		echo "------- Group manager -------"
+		echo
+		echo "- a Add new group"
+		echo "- l List all groups"
+		echo "- v View users of a group"
+		echo "- m Modify users in group (add or remove)"
+		echo "- d Delete group"
+		;;
 
 esac

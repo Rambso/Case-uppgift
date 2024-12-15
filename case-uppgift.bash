@@ -28,12 +28,10 @@ while true; do
 		u | U)
 			clear
 			bash user_management.bash
-			bash exit.bash
 			;;
 		g | G)
 			clear
-			echo "groups"
-			bash exit.bash
+			bash group_management.bash
 			;;
 		f | F)
 			clear
@@ -50,5 +48,5 @@ while true; do
 			bash exit.bash
 			;;
 	esac
-	#cat /etc/passwd | grep bash # Printar användarkonton
+
 done
