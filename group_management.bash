@@ -23,7 +23,11 @@ while true; do
 			;;
 		l | L)
 			clear
-			echo Ll
+			echo
+			echo "		GROUPS"
+			echo "---------------------------------------------"
+			getent group | awk -F: '$3 >= 1000' | cut -d ":" -f 1 | column -c 50
+			echo "---------------------------------------------"
 			bash exit.bash
 			;;
 		v | V)
@@ -55,7 +59,14 @@ while true; do
 			;;
 		d | D)
 			clear
-			echo Dd
+			read -p "Group name: " name
+			GID=$(getent group $name | cut -d ":" -f 3)
+			if [[ $GID -gt 1000 ]]; then
+				delgroup $name
+				echo "Group $name has been removed"
+			else
+				echo "$name is not a user owned group"
+			fi
 			bash exit.bash
 			;;
 		e | E)

@@ -26,6 +26,7 @@ case $1 in
 		echo "- e Exit"
 		;;
 	group)
+		echo
 		echo "------- Group manager -------"
 		echo
 		echo "- a Add new group"
@@ -33,6 +34,10 @@ case $1 in
 		echo "- v View users of a group"
 		echo "- m Modify users in group (add or remove)"
 		echo "- d Delete group"
+		echo "- e Exit"
+		echo
+		echo "-----------------------------"
+		echo
 		;;
 
 esac
