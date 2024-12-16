@@ -10,8 +10,8 @@ case $1 in
 		echo "- g Group management"
 		echo "- u User management"
 		echo "- f Folder management"
-		echo
 		echo "- e Exit program"
+		echo
 		echo "------------------------------"
 		;;
 
@@ -24,6 +24,8 @@ case $1 in
 		echo "- m Modify user properties"
 		echo "- d Delete a login user"
 		echo "- e Exit"
+		echo
+		echo "-------------------------------"
 		;;
 	group)
 		echo

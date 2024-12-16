@@ -63,9 +63,9 @@ while true; do
 			GID=$(getent group $name | cut -d ":" -f 3)
 			if [[ $GID -gt 1000 ]]; then
 				delgroup $name
-				echo "Group $name has been removed"
+				echo "Group $name has been removed."
 			else
-				echo "$name is not a user owned group"
+				echo "$name is not a user owned group."
 			fi
 			bash exit.bash
 			;;
