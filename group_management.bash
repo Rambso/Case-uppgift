@@ -10,7 +10,6 @@ while true; do
 			clear
 			echo -n "Name of group: "
 			read name
-			rm /tmp/grouperr.log
 			addgroup $name 2> /tmp/grouperr.log
 			error=$(cat /tmp/grouperr.log | cut -d ":" -f 1)
 			if [[ $error == "fatal" ]]; then
@@ -32,7 +31,13 @@ while true; do
 			;;
 		v | V)
 			clear
-			echo Vv
+			read -p "Name of group: " group
+			gid=$(getent group $group | cut -d ":" -f 3)
+			echo "Users in $group:"
+			echo
+			getent group $group | cut -d ":" -f 4 | tr "," "\n"
+			cat /etc/passwd | grep $gid | cut -d ":" -f 1
+			echo
 			bash exit.bash
 			;;
 		m | M)

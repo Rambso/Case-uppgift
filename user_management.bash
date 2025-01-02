@@ -8,7 +8,7 @@ while true; do
 	case $input in
 		a | A)
 			clear
-			echo "------- CREAT USER -------"
+			echo "------- CREATE USER -------"
 			echo
 			read -p "Username: " name
 			read -p "Password: " password
@@ -42,7 +42,52 @@ while true; do
 			bash exit.bash
 			;;
 		m | M)
-			echo Modify user properties
+			clear
+			read -p "User to modify: " name
+			clear
+			echo "--------- MODIFY USER -------"
+			echo "- u Edit username"
+			echo "- p Change password"
+			echo "- i Edit user id"
+			echo "- g Change primary group"
+			echo "- c Add comment"
+			echo "- d Change home directory"
+			echo "- s Change shell"
+			echo
+			read -p "Input: " input
+			case $input in
+				u | U)
+					read -p "New username: " new_name
+					usermod -l $new_name $name
+					;;
+				p | P)
+					read -p "New password: " password
+					usermod -p $(openssl passwd -1 $password) $name
+					;;
+				i | I)
+					read -p "New user id: " id
+					usermod -u $id $name
+					;;
+				g | G)
+					read -p "New group name/id: " group
+					usermod -g $group $name
+					;;
+				c | C)
+					read -p "Comment: " comment
+					usermod -c "$comment" $name
+					;;
+				d | D)
+					read -p "New home directory" dir
+					usermod -d /home/$dir $name
+					;;
+				s | S)
+					read -p "Shell: " shell
+					usermod -s $shell $name
+					;;
+				*)
+					echo "Invalid input"
+			esac
+
 			bash exit.bash
 			;;
 		d | D)
