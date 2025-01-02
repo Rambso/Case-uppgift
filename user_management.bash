@@ -43,7 +43,6 @@ while true; do
 			;;
 		m | M)
 			echo Modify user properties
-			echo
 			bash exit.bash
 			;;
 		d | D)
