@@ -47,6 +47,16 @@ while true; do
 			case $option in
 				a | A)
 					clear
+					if [[ $(cat /etc/passwd | grep "$user:" | wc -l) == 0 ]]; then
+						echo "User, $user, does not exist"
+						bash exit.bash
+						exit
+					fi
+					if [[ $(cat /etc/group | grep "$group:" | wc -l) == 0 ]]; then
+						echo "Group, $group, does not exist"
+						bash exit.bash
+						exit
+					fi
 					echo "" > /tmp/grouperr.log
 					usermod -aG $group $user 2> /tmp/grouperr.log
 					echo "$user has been added to $group"

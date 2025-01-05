@@ -2,9 +2,9 @@
 
 # Skapad av Omar Farouq Salloum och Lowe Göth, Grupp 14
 #
-# Licens:
+# Licens: MIT License
 #
-# Motivering:
+# Motivering: Vi tycker att 
 #
 #
 
@@ -22,7 +22,7 @@ while true; do
 	case $input in
 		c | C)
 			clear
-			echo "computer inof"
+			bash computer_info.bash
 			bash exit.bash
 			;;
 		u | U)
@@ -35,7 +35,7 @@ while true; do
 			;;
 		f | F)
 			clear
-			echo "filesssssss"
+			bash file_management.bash
 			bash exit.bash
 			;;
 		e | E)

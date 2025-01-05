@@ -1,5 +1,9 @@
 #!/bin/bash
+
+echo
+echo ------- Home Directories -------
 ls /home | column -c 85
+echo
 read -p "Username: " user
 path="/home/$user"
 if [[ "$(cat /etc/passwd | grep $user: | wc -l)" == 0 ]]; then
@@ -7,7 +11,7 @@ if [[ "$(cat /etc/passwd | grep $user: | wc -l)" == 0 ]]; then
 	exit
 fi
 
-while true; do 
+while true; do
 	clear
 	echo "Current path: $path"
 	echo
@@ -44,9 +48,11 @@ while true; do
 				exit
 			fi
 			ls -l $path | grep $folderToView
-			bash exit.bash 
+			bash exit.bash
 			;;
-		m | M) ;;
+		m | M)
+			bash modify_file.bash $path
+			;;
 		a | A)
 			read -p "new directory name: " name
 			mkdir $path/$name
