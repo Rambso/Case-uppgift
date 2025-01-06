@@ -8,6 +8,7 @@ while true; do
 	case $input in
 		a | A)
 			clear
+			getent group | awk -F: '$ >= 1000' | cut -d ":" -f 1 | column -c 50
 			echo -n "Name of group: "
 			read name
 			addgroup $name 2> /tmp/grouperr.log
@@ -31,6 +32,7 @@ while true; do
 			;;
 		v | V)
 			clear
+			getent group | awk -F: '$3 >= 1000' | cut -d ":" -f 1 | column -c 50
 			read -p "Name of group: " group
 			gid=$(getent group $group | cut -d ":" -f 3)
 			echo "Users in $group:"
@@ -74,6 +76,7 @@ while true; do
 			;;
 		d | D)
 			clear
+			getent group | awk -F: '$3 >= 1000' | cut -d ":" -f 1 | column -c 50
 			read -p "Group name: " name
 			GID=$(getent group $name | cut -d ":" -f 3)
 			if [[ $GID -gt 1000 ]]; then
