@@ -1,3 +1,4 @@
+
 #!/bin/bash
 ls /home | column -c 85
 read -p "Username: " user
@@ -35,7 +36,7 @@ while true; do
 			path="$path/$dir"
 			;;
 		b | B)
-			path="$(dirname $path)" 
+			path="$(dirname $path)"
 			;;
 		v | V)
 			read -p "input: " folderToView
@@ -44,9 +45,53 @@ while true; do
 				exit
 			fi
 			ls -l $path | grep $folderToView
-			bash exit.bash 
+			echo "Permissions"
+			echo "Owner ($(ls -l $path | grep $folderToView | tr -s ' ' | cut -d ' ' -f 3)):"
+			if [[ "$(ls -l $path | grep $folderToView | tr -s ' ' | cut -b 2 )" == r ]]; then
+				echo "     Reading permission"
+			fi
+			echo "     Permission goes here"
+			echo "     Permission goes here"
+			echo "Group:"
+			echo "Other:"
+			echo
+			echo "Last modified: $(ls -l $path | grep $folderToView | tr -s ' ' | cut -d ' ' -f 6-8)"
+			bash exit.bash
 			;;
-		m | M) ;;
+		m | M) 
+			read -p "What file? " fileInput
+			if [[  "$(ls $path | grep $fileInput | wc -l)" == 0 ]]; then
+				echo "Folder does not exist"
+				exit
+			fi
+			echo "-p Permissions"
+			echo "-o Owner"
+			echo "-g Group"
+			
+			read -p "What do you want to change?" changeInput
+			case $changeInput in
+				p | P)
+					;;
+				o | O)
+					compgen -u | column -c 85
+					read -p "Which user?" userInput
+					if [[ "$(compgen -u | grep $userInput)" == 0 ]]; then
+						echo "user does not exist"
+						exit
+					fi
+					chown -c $userInput $fileInput
+					;;
+				g | G)
+					compgen -g | column -c 85
+					read -p "Which group? " groupInput
+					if [[ "$(compgen -u | grep $groupInput)" == 0 ]]; then
+						echo "Group does not exist"
+						exit
+					fi
+					chown -c :$groupInput $fileInput
+					;;
+			esac
+			;;
 		a | A)
 			read -p "new directory name: " name
 			mkdir $path/$name
