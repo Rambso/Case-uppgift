@@ -28,6 +28,11 @@ while true; do
 		v | V)
 			clear
 			read -p "Username: " name
+			if [[ $(cat /etc/passwd | grep "$name:" | wc -l) == 0 ]]; then
+				echo "User, $name, does not exist"
+				bash exit.bash
+				exit
+			fi
 			echo "----------------------------"
 			echo -n "Username:	"; cat /etc/passwd | grep $name | cut -d ":" -f 1
 			echo -n "Password: 	"; cat /etc/passwd | grep $name | cut -d ":" -f 2
@@ -43,6 +48,7 @@ while true; do
 			;;
 		m | M)
 			clear
+			cat /etc/passwd | grep
 			read -p "User to modify: " name
 			clear
 			echo "--------- MODIFY USER -------"
