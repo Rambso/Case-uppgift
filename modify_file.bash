@@ -111,7 +111,15 @@ case $input in
 		esac
 		;;
 	o | O)
+		echo "Users:"
+		cat /etc/passwd | grep "/home/" | cut -d ":" -f 1 | column -c 45
+		echo
 		read -p "New owner: " name
+		if [[ $name == "" ]]; then
+			echo "Invalid input"
+			bash exit.bash
+			exit
+		fi
 		if [[ $(cat /etc/passwd | grep "$name:" | wc -l) != 0 ]]; then
 			chown $name $path/$file
 			echo "Owner of $file is now $name"
@@ -124,7 +132,14 @@ case $input in
 		fi
 		;;
 	g | G)
+		echo "Groups"
+		getent group | awk -F: '$3 >= 1000' | cut -d ":" -f 1 | column -c 50
 		read -p "New file group: " group
+		if [[ $group == "" ]]; then
+			echo "Invalid input"
+			bash exit.bash
+			exit
+		fi
 		if [[ $(cat /etc/group | grep "$group:" | wc -l) != 0 ]]; then
 			chgrp $group $path/$file
 			echo "Group ownership of $file now belongs to $group"

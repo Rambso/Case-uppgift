@@ -11,7 +11,17 @@ while true; do
 			echo "------- CREATE USER -------"
 			echo
 			read -p "Username: " name
+			if [[ $name == "" ]]; then
+				echo "Name cant be empty"
+				bash exit.bash
+				exit
+			fi
 			read -p "Password: " password
+			if [[ $password == "" ]]; then
+				echo "Password cant be empty"
+				bash exit.bash
+				exit
+			fi
 			useradd -mp $(openssl passwd -1 $password) $name
 			echo "User $name has been created"
 			echo
@@ -27,7 +37,18 @@ while true; do
 			;;
 		v | V)
 			clear
+
+			echo "Users: "
+			cat /etc/passwd | grep /home | cut -d ":" -f 1 | column -c 40
+			echo
 			read -p "Username: " name
+
+			if [[ $name == "" ]]; then
+				echo "Invalid input"
+				bash exit.bash
+				exit
+			fi
+
 			if [[ $(cat /etc/passwd | grep "$name:" | wc -l) == 0 ]]; then
 				echo "User, $name, does not exist"
 				bash exit.bash
@@ -48,8 +69,21 @@ while true; do
 			;;
 		m | M)
 			clear
-			cat /etc/passwd | grep
+
+			echo "Users: "
+			cat /etc/passwd | grep /home | cut -d ":" -f 1 | column -c 40
+			echo
 			read -p "User to modify: " name
+			if [[ $name == "" ]]; then
+				echo "Invalid input"
+				bash exit.bash
+				exit
+			fi
+			if [[ $( cat /etc/passwd | grep -w $name | wc -l) == 0 ]]; then
+				echo "User does not exist"
+				bash exit.bash
+				exit
+			fi 
 			clear
 			echo "--------- MODIFY USER -------"
 			echo "- u Edit username"
@@ -64,18 +98,42 @@ while true; do
 			case $input in
 				u | U)
 					read -p "New username: " new_name
+
+					if [[ $new_name == "" ]]; then
+						echo "Invalid input"
+						bash exit.bash
+						exit
+					fi
 					usermod -l $new_name $name
 					;;
 				p | P)
 					read -p "New password: " password
+
+					if [[ $password == "" ]]; then
+						echo "Invalid input"
+						bash exit.bash
+						exit
+					fi
 					usermod -p $(openssl passwd -1 $password) $name
 					;;
 				i | I)
 					read -p "New user id: " id
+
+					if [[ $id == "" ]]; then
+						echo "Invalid input"
+						bash exit.bash
+						exit
+					fi
 					usermod -u $id $name
 					;;
 				g | G)
 					read -p "New group name/id: " group
+
+					if [[ $group == "" ]]; then
+						echo "Invalid input"
+						bash exit.bash
+						exit
+					fi
 					usermod -g $group $name
 					;;
 				c | C)
@@ -88,6 +146,12 @@ while true; do
 					;;
 				s | S)
 					read -p "Shell: " shell
+
+					if [[ $shell == "" ]]; then
+						echo "Invalid input"
+						bash exit.bash
+						exit
+					fi
 					usermod -s $shell $name
 					;;
 				*)
@@ -98,7 +162,21 @@ while true; do
 			;;
 		d | D)
 			clear
+
+			echo "Users: "
+			cat /etc/passwd | grep /home | cut -d ":" -f 1 | column -c 40
+			echo
 			read -p "Name: " name
+			if [[ $name == "" ]]; then
+				echo "Invalid input"
+				bash exit.bash
+				exit
+			fi
+			if [[ $(cat /etc/passwd | grep -w $name | wc -l) == 0 ]]; then
+				echo "User, $name,  does not exist"
+				bash exit.bash
+				exit
+			fi
 			deluser --remove-all-files $name &> /tmp/usererr.log
 			echo
 			echo "$name has been removed"

@@ -4,7 +4,7 @@
 case $1 in
 	start)
 		echo
-		echo " ------- SYSTEM MANAGER -------"
+		echo "-------- SYSTEM MANAGER -------"
 		echo
 		echo "- c Computer information"
 		echo "- g Group management"
@@ -12,10 +12,12 @@ case $1 in
 		echo "- f Folder management"
 		echo "- e Exit program"
 		echo
-		echo "------------------------------"
+		echo "-------------------------------"
+		echo
 		;;
 
 	user)
+		echo
 		echo "------- USER MANAGEMENT -------"
 		echo
 		echo "- a Add user"
@@ -26,6 +28,7 @@ case $1 in
 		echo "- e Exit"
 		echo
 		echo "-------------------------------"
+		echo
 		;;
 	group)
 		echo

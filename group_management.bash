@@ -8,9 +8,14 @@ while true; do
 	case $input in
 		a | A)
 			clear
-			getent group | awk -F: '$ >= 1000' | cut -d ":" -f 1 | column -c 50
+			getent group | awk -F: '$3 >= 1000' | cut -d ":" -f 1 | column -c 50
 			echo -n "Name of group: "
 			read name
+			if [[ $name == "" ]]; then
+				echo "Invalid input"
+				bash exit.bash
+				exit
+			fi
 			addgroup $name 2> /tmp/grouperr.log
 			error=$(cat /tmp/grouperr.log | cut -d ":" -f 1)
 			if [[ $error == "fatal" ]]; then
@@ -34,6 +39,17 @@ while true; do
 			clear
 			getent group | awk -F: '$3 >= 1000' | cut -d ":" -f 1 | column -c 50
 			read -p "Name of group: " group
+			if [[ $group == "" ]]; then
+				echo "Invalid input"
+				bash exit.bash
+				exit
+			fi
+			if [[ $(getent group $group | wc -l) == 0 ]]; then
+				echo "Group does not exist"
+				bash exit.bash
+				exit
+			fi
+
 			gid=$(getent group $group | cut -d ":" -f 3)
 			echo "Users in $group:"
 			echo
@@ -43,7 +59,15 @@ while true; do
 			bash exit.bash
 			;;
 		m | M)
+			clear
+			echo "Users: "
+			cat /etc/passwd | grep /home | cut -d ":" -f 1 | column -c 45
+			echo
 			read -p "User: " user
+			echo
+			echo "Groups: "
+			getent group | awk -F: '$3 >= 1000' | cut -d ":" -f 1 | column -c 50
+			echo
 			read -p "Group: " group
 			read -p "(a)dd/(r)emove: " option
 			case $option in
@@ -78,6 +102,16 @@ while true; do
 			clear
 			getent group | awk -F: '$3 >= 1000' | cut -d ":" -f 1 | column -c 50
 			read -p "Group name: " name
+			if [[ $name == "" ]]; then
+				echo "invalid input"
+				bash exit.bash
+				exit
+			fi
+			if [[ $(cat /etc/group | grep -w $name | wc -l) == 0 ]]; then
+				echo "Group, $name, does not exist"
+				bash exit.bash
+				exit
+			fi
 			GID=$(getent group $name | cut -d ":" -f 3)
 			if [[ $GID -gt 1000 ]]; then
 				delgroup $name
