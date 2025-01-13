@@ -1,5 +1,6 @@
 
 #!/bin/bash
+#Skapat av Omar Farouq Salloum och Lowe Göth, grupp 14
 
 echo
 echo "Compuer name: $(hostname)"

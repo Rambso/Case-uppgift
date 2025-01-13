@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Skapat av Omar Farouq Salloum och Lowe Göth, grupp 14
+
 while true; do
 	clear
 	bash menu.bash group

@@ -1,4 +1,5 @@
 #!/bin/bash
+# Skapat av Omar Farouq Salloum och Lowe Göth, grupp 14
 clear
 echo
 echo ------- Home Directories -------
